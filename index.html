@@ -79,12 +79,14 @@
         <h3>Change background color</h3>
         <form>
           <label for="background-color-input">Enter a hex or rgb code or pick a color for the new background color:</label>
-          <input type="text" id="background-color-input" name="background-color" placeholder="#FFFFFF" autocomplete="off" required>
-          <button class="settings-button" id="color-picker-button">Pick a color</button>
-          <button class="settings-button" type="submit" id="apply-btn">Apply</button>
-          <button class="settings-button" type="button" id="reset-btn">Reset to Default</button>
+          <button class="settings-button" id="color-picker-button">Pick a color </button>
           <div class="color-picker" id="color-picker">
             <canvas class="color-canvas" id="color-canvas"></canvas>
+            <div class="color-picker-popup" id="color-picker-popup"></div>
+            <input type="text" id="background-color-input" name="background-color" placeholder="#FFFFFF" autocomplete="off" required>
+            <div id="color-preview">Color Preview</div>
+            <button class="popup-button" type="button" id="reset-btn">Reset to Default</button>
+            <button class="popup-button" type="submit" id="apply-btn">Apply</button>
           </div>
         </form>
       </section>

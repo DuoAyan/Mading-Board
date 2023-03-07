@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		var timezone = "Asia/Jakarta";
 		var jam = moment().tz(timezone);
 		const clockElement = document.getElementById('clock');
-		var timeString = jam.format("MMM D, YYYY HH:mm:ss");
+		var timeString = jam.format("MMM D, YYYY HH:mm");
 		clockElement.textContent = jam;
 		document.getElementById("clock").innerHTML = timeString;
-		setInterval(updateClock, 1000);
+		setInterval(updateClock, 60000);
 	}
 	updateClock();
 
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Change Background Color
 	const input = document.querySelector('#background-color-input');
+	const colorPreview = document.querySelector('#color-preview');
 	const body = document.getElementsByTagName('body')[0];
 	const applyButton = document.querySelector('#apply-btn');
 	const savedBackgroundColor = localStorage.getItem('backgroundColor');
@@ -46,16 +47,19 @@ document.addEventListener('DOMContentLoaded', function() {
 	const resetButton = document.querySelector('#reset-btn');
 
 	resetButton.addEventListener('click', function(event) {
-	  event.preventDefault();
-	  body.style.backgroundColor = '';
-	  localStorage.removeItem('backgroundColor');
+	  	event.preventDefault();
+		input.value = null;
+		selectedColor = null;
+		colorPreview.style.backgroundColor = selectedColor;
 	});
 
 	// Color picker
 	const colorPickerButton = document.getElementById('color-picker-button');
+	const colorPickerPopup = document.getElementById('color-picker-popup');
 	const colorPicker = document.getElementById('color-picker');
 	const canvas = document.getElementById('color-canvas');
 	const context = canvas.getContext('2d');
+	context.canvas.willReadFrequently = true;
 
 	let selectedColor = null;
 
@@ -66,35 +70,52 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	canvas.addEventListener('click', function(event) {
 		event.preventDefault();
-		colorPicker.style.display = 'none';
-  		if (selectedColor) {
+		if (selectedColor) {
 			input.value = selectedColor;
+			colorPreview.style.backgroundColor = input.value;
 		}
 	});
 
-	const gradient = context.createLinearGradient(0, 0, canvas.width, 0);
-	for (let angle = 0; angle < 360; angle += 1) {
-  		gradient.addColorStop(angle / 360, `hsl(${angle}, 100%, 50%)`);
+	const imageData = context.createImageData(canvas.width, canvas.height);
+	const data = imageData.data;
+	
+	for (let i = 0; i < canvas.width; i++) {
+	  for (let j = 0; j < canvas.height; j++) {
+		const index = (i + j * canvas.width) * 4;
+		data[index] = i;
+		data[index + 1] = 255 - j;
+		data[index + 2] = j;
+		data[index + 3] = 255;
+	  }
 	}
-	context.fillStyle = gradient;
-	context.fillRect(0, 0, canvas.width, canvas.height);
-
+	
+	context.putImageData(imageData, 0, 0);
 
 	function getColorAtPoint(x, y) {
-  		const imageData = context.getImageData(x, y, 1, 1);
-  		const rgba = imageData.data;
-  		return `rgb(${rgba[0]}, ${rgba[1]}, ${rgba[2]})`;
-	}
+		const imageData = context.getImageData(x, y, 1, 1);
+		const rgba = imageData.data;
+		return `rgb(${rgba[0]}, ${rgba[1]}, ${rgba[2]})`;
+	  }
 
 	canvas.addEventListener('mousemove', (event) => {
   		const rect = canvas.getBoundingClientRect();
   		const x = event.clientX - rect.left;
   		const y = event.clientY - rect.top;
-  		selectedColor = getColorAtPoint(x, y);
+		const colorPickerPopupX = x;
+		const colorPickerPopupY = y - 50;
+		selectedColor = getColorAtPoint(x, y);
+		colorPickerPopup.style.display = 'block';
+		colorPickerPopup.style.left = colorPickerPopupX + 'px';
+		colorPickerPopup.style.top = colorPickerPopupY + 'px';
+		colorPickerPopup.textContent = selectedColor;
 	});
 
-	canvas.addEventListener('mouseleave', () => {
-  		selectedColor = null;
-	});
-
+	canvas.addEventListener('mouseout', function(event) {
+		colorPickerPopup.style.display = 'none';
+  	});	
+	  document.addEventListener('mousedown', function(event) {
+		if (!colorPicker.contains(event.target) && event.target !== colorPickerButton) {
+			colorPicker.style.display = 'none';
+		}
+	});	
 });
