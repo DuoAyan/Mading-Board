@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>App Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="css/icon/home.png" />
+    <link rel="stylesheet" type="text/css" href="css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/dark.css" />
+    <link rel="stylesheet" type="text/css" href="css/light.css" disabled />
+    <script src="js/main.js"></script>
+    <script src="js/date.js"></script>
+    <script src="js/datetz.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>
+        <a href="" class="title">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke="var(--primary-color)"
+            fill="transparent"
+            class="icon">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <div>App Dashboard</div>
+        </a>
+      </h1>
+      <h2>
+        <div class="clock" id="clock"></div>
+      </h2>
+    </header>
+    <main>
+      <section class="navbar">
+        <button class="navbarbtn" id="apps">Apps</button>
+        <button class="navbarbtn" id="settings">Settings</button>
+      </section>
+      <section class="app-container">
+        <a href="" class="app-detail">
+          <div class="app-logo"><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons@master/png/adguard-home.png" title="AdGuardHome" alt="AdGuardHome" /></div>
+          <div class="app-title" id="app-title">AdGuard Home</div>
+        </a>
+        <div class="app-btn-container"> 
+          <button class="app-button" id="app-button-start">
+            <svg 
+              fill="var(--secondary-color)" 
+              width="24px" 
+              height="24px" 
+              viewBox="2 2 28 28">
+              <path d="M20.697 24L9.303 16.003 20.697 8z"/>
+            </svg>
+          </button>
+          <button class="app-button" id="app-button-pause">
+            <svg 
+              fill="var(--secondary-color)" 
+              width="24px" 
+              height="24px" 
+              viewBox="-1 -1 24 24">
+              <path d="M6 4H9V18H6V4M13 18V4H16V18H13Z"/>
+            </svg>
+          </button>
+          <button class="app-button" id="app-button-restart">
+            <svg  
+              fill="var(--secondary-color)"
+              width="24px" 
+              height="24px" 
+              viewBox="-1 -1 18 18">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z"/>
+            </svg>
+          </button>
+        </div>
+      </section>
+      <section class="apps-settings hidden">
+        <h3>Change background color</h3>
+        <form>
+          <label for="background-color-input">Enter a hex or rgb code or pick a color for the new background color:</label>
+          <input type="text" id="background-color-input" name="background-color" placeholder="#FFFFFF" autocomplete="off" required>
+          <button class="settings-button" id="color-picker-button">Pick a color</button>
+          <button class="settings-button" type="submit" id="apply-btn">Apply</button>
+          <button class="settings-button" type="button" id="reset-btn">Reset to Default</button>
+          <div class="color-picker" id="color-picker">
+            <canvas class="color-canvas" id="color-canvas"></canvas>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
