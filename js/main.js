@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	// Change Background Color
-	const form = document.querySelector('form');
 	const input = document.querySelector('#background-color-input');
 	const body = document.getElementsByTagName('body')[0];
 	const applyButton = document.querySelector('#apply-btn');
@@ -60,12 +59,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	let selectedColor = null;
 
-	colorPickerButton.addEventListener('click', () => {
+	colorPickerButton.addEventListener('click', function(event) {
+		event.preventDefault();
 		colorPicker.style.display = colorPicker.style.display === 'none' ? 'block' : 'none';
 	});
 
-	canvas.addEventListener('click', () => {
-  		colorPicker.style.display = 'none';
+	canvas.addEventListener('click', function(event) {
+		event.preventDefault();
+		colorPicker.style.display = 'none';
   		if (selectedColor) {
 			input.value = selectedColor;
 		}
