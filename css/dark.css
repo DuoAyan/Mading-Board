@@ -1,0 +1,14 @@
+:root {
+	--background-color: #0A0A0A;
+	--content-background-color: #191919;
+	--primary-color: #8B9A46;
+	--secondary-color: #DAE2B6;
+	--tertiary-color: #EEEEEE;
+	--quarternary-color: #1B6E37;
+	--background-color-rgb: 10, 10, 10;
+	--content-background-color-rgb: 25, 25, 25;
+	--primary-color-rgb: 139, 154, 70;
+	--secondary-color-rgb: 218, 226, 182;
+	--tertiary-color-rgb: 238, 238, 238;
+	--quarternary-color-rgb: 27, 110, 55;
+}
