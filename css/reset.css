@@ -20,7 +20,7 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
+	font-size: inherit;
 	line-height: 1.5;
 	vertical-align: baseline;
 	-webkit-font-smoothing: antialiased;
@@ -48,6 +48,10 @@ table {
 img, picture, video, canvas, svg {
 	display: block;
 	max-width: 100%;
+}
+svg {
+	width: 24px;
+	height: 24px;
 }
 input, button, textarea, select {
 	font: inherit;

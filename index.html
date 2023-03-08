@@ -2,43 +2,33 @@
 <html>
   <head>
     <title>App Dashboard</title>
-    <link rel="icon" type="image/x-icon" href="css/icon/home.png" />
+    <link rel="icon" type="image/x-icon" href="home.png" />
     <link rel="stylesheet" type="text/css" href="css/reset.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/dark.css" />
     <link rel="stylesheet" type="text/css" href="css/light.css" disabled />
-    <script src="js/main.js"></script>
-    <script src="js/date.js"></script>
-    <script src="js/datetz.js"></script>
+    <script src="js/moment.js"></script>
+    <script async src="js/main.js"></script>
+    <script async src="js/clock.js"></script>
+    <script async src="js/settings.js"></script>
   </head>
   <body>
     <header>
-      <h1>
-        <a href="" class="title">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke="var(--primary-color)"
-            fill="transparent"
-            class="icon">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
-          <div>App Dashboard</div>
-        </a>
-      </h1>
-      <h2>
-        <div class="clock" id="clock"></div>
-      </h2>
+      <a href="" class="title">
+        <svg
+          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke="var(--font-color)" fill="transparent" class="icon">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <div>Mading</div>
+      </a>
+      <div class="clock" id="clock"></div>
     </header>
     <main>
       <section class="navbar">
         <button class="navbarbtn" id="apps">Apps</button>
         <button class="navbarbtn" id="settings">Settings</button>
+        <button class="navbarbtn" id="add-app">Add App</button>
       </section>
       <section class="app-container">
         <a href="" class="app-detail">
@@ -48,27 +38,18 @@
         <div class="app-btn-container"> 
           <button class="app-button" id="app-button-start">
             <svg 
-              fill="var(--secondary-color)" 
-              width="24px" 
-              height="24px" 
               viewBox="2 2 28 28">
               <path d="M20.697 24L9.303 16.003 20.697 8z"/>
             </svg>
           </button>
           <button class="app-button" id="app-button-pause">
             <svg 
-              fill="var(--secondary-color)" 
-              width="24px" 
-              height="24px" 
               viewBox="-1 -1 24 24">
               <path d="M6 4H9V18H6V4M13 18V4H16V18H13Z"/>
             </svg>
           </button>
           <button class="app-button" id="app-button-restart">
             <svg  
-              fill="var(--secondary-color)"
-              width="24px" 
-              height="24px" 
               viewBox="-1 -1 18 18">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z"/>
             </svg>
@@ -76,19 +57,73 @@
         </div>
       </section>
       <section class="apps-settings hidden">
-        <h3>Change background color</h3>
-        <form>
-          <label for="background-color-input">Enter a hex or rgb code or pick a color for the new background color:</label>
-          <button class="settings-button" id="color-picker-button">Pick a color </button>
-          <div class="color-picker" id="color-picker">
-            <canvas class="color-canvas" id="color-canvas"></canvas>
-            <div class="color-picker-popup" id="color-picker-popup"></div>
-            <input type="text" id="background-color-input" name="background-color" placeholder="#FFFFFF" autocomplete="off" required>
-            <div id="color-preview">Color Preview</div>
-            <button class="popup-button" type="button" id="reset-btn">Reset to Default</button>
-            <button class="popup-button" type="submit" id="apply-btn">Apply</button>
-          </div>
-        </form>
+        <svg style="display:none;">
+          <symbol id="edit-icon" viewBox="0 0 24 24" fill="var(--content-bg-color)" stroke="var(--secondary-font-color)" stroke-miterlimit="10" stroke-width="2px">
+            <rect x="5.32" y="1.5" width="13.36" height="8.59"/>
+            <path d="M5.32,10.09V12a2.86,2.86,0,0,0,2.86,2.86h1.91v5.73a1.91,1.91,0,1,0,3.82,0V14.86h1.91A2.86,2.86,0,0,0,18.68,12V10.09Z"/>
+            <line x1="9.14" y1="7.23" x2="9.14" y2="1.5"/>
+          </symbol>
+        </svg>
+        <div class="settings-title" id="bgcolor-input">Change background color
+          <form class="desc">
+            <div>Enter new color for background:</div>
+            <button class="color-picker-button" id="bg-button">
+              <svg class="edit-icon">
+                <use xlink:href="#edit-icon"></use>
+             </svg>
+           </button>
+          </form>
+        </div>
+        <div class="settings-title" id="content-bg-color-input">Change content background color
+          <form class="desc">
+            <div>Enter new color for content background:</div>
+            <button class="color-picker-button" id="content-bg-button">
+              <svg class="edit-icon">
+               <use xlink:href="#edit-icon"></use>
+             </svg>
+            </button>
+          </form>
+        </div>
+        <div class="settings-title" id="font-color-input">Change font color
+          <form class="desc">
+           <div>Enter new color for font:</div>
+           <button class="color-picker-button" id="font-button">
+              <svg class="edit-icon">
+                <use xlink:href="#edit-icon"></use>
+             </svg>
+            </button>
+          </form>
+        </div>
+        <div class="settings-title" id="secondary-font-color-input">Change secondary font color
+          <form class="desc">
+            <div>Enter new color for secondary font:</div>
+            <button class="color-picker-button" id="secondary-font-button">
+             <svg class="edit-icon">
+                <use xlink:href="#edit-icon"></use>
+              </svg>
+            </button>
+          </form>
+        </div>
+        <div class="settings-title" id="button-color-input">Change button color
+          <form class="desc">
+            <div>Enter new color for button:</div>
+            <button class="color-picker-button" id="button-color">
+             <svg class="edit-icon">
+                <use xlink:href="#edit-icon"></use>
+              </svg>
+           </button>
+          </form>
+        </div>
+        <div class="color-picker">
+          <canvas class="color-canvas"></canvas>
+          <div class="color-picker-popup"></div>
+          <input type="text" id="color-input" placeholder="#FFFFFF" autocomplete="off" spellcheck="false" required>
+          <div id="color-preview">Color Preview</div>
+          <button class="popup-button" type="button" id="reset-btn">Reset to Default</button>
+          <button class="popup-button" type="submit" id="apply-btn">Apply</button>
+        </div>
+      </section>
+      <section class="add-app">
       </section>
     </main>
   </body>
